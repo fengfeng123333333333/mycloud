@@ -69,5 +69,7 @@ body {
 .ivu-page-item {
   border: 0.01rem solid #E6E6E6 !important;
 }
-
+.ivu-select-dropdown-list .ivu-select-item:first-child{
+  display: none!important;;
+}
 </style>

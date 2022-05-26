@@ -496,19 +496,6 @@
             actions, and dependencies, at scale.</div>
         </div>
       </div>
-      <div class="foot">
-        <img src="../../../assets/img/home/foottop_bg@2x.png" alt="" class="footImg">
-        <div class="footContent">
-          <div class="footLeft">
-            <span>Contact us！</span>
-            <img src="../../../assets/img/home/icon_tab_w_r@2x.png" alt="">
-          </div>
-          <div class="footRgiht">
-            <span>Get Start</span>
-            <img src="../../../assets/img/home/arrowright@2x.png" alt="">
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>

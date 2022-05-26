@@ -12,10 +12,11 @@
 
 .search {
     width: 100%;
+    display: flex;
 }
 
 .contentBox {
-    margin-top: 40px;
+    margin-top: 10px;
     display: flex;
 }
 
@@ -196,9 +197,12 @@
     <div class="app">
         <div class="content">
             <div class="search">
-                <Select v-model="roleValue">
-                    <Option v-for="(item, index) in roleList" :value="item.value" :key="index">{{ item.label }}</Option>
+                <Select style="margin-right:20px" v-model="roleValue" @on-query-change="inputFun" :clearable="true" allow-create not-found-text="no data"
+                    @on-clear="clearFun" :filterable="true" @on-change="selectFun" :label-in-value="true" placeholder="please select">
+                    <Option v-for="(item, index) in tableData.tableList" @click.native="getMoreParams(item)"
+                        :value="item.value" :key="index">{{ item.label }}</Option>
                 </Select>
+                <Button @click="searchFun" type="primary">search</Button>
             </div>
             <div class="contentBox">
                 <div class="left">
@@ -220,7 +224,7 @@
                     </div>
                 </div>
                 <div class="right">
-                    <div class="rightItem">
+                    <div class="rightItem" v-if="groupShow">
                         <div class="itemTitle">
                             <span>Groups</span>
                             <span class="all" @click="toGroupFun">
@@ -229,7 +233,7 @@
                             </span>
                         </div>
                         <div class="table">
-                            <div class="tableItem" v-for="(item, index) in tableData.tableList" :key="index"
+                            <div class="tableItem" v-for="(item, index) in groupList" :key="index"
                                 @click="toGroupItemFun(item)">
                                 <div class="tableImg"></div>
                                 <div class="tableInfo">
@@ -244,7 +248,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="rightItem">
+                    <div class="rightItem" v-if="projectShow">
                         <div class="itemTitle">
                             <span>Projects</span>
                             <span class="all" @click="toProjectFun">
@@ -253,7 +257,7 @@
                             </span>
                         </div>
                         <div class="table">
-                            <div class="tableItem" v-for="(item, index) in tableData.tableList" :key="index"
+                            <div class="tableItem" v-for="(item, index) in projectList" :key="index"
                                 @click="toProjectItemFun(item)">
                                 <div class="tableImg"></div>
                                 <div class="tableInfo">
@@ -278,36 +282,18 @@ export default {
     data() {
         return {
             roleValue: null,
-            roleList: [
-                {
-                    value: '1',
-                    label: 'Guest'
-                },
-                {
-                    value: '2',
-                    label: 'Reporter'
-                },
-                {
-                    value: '3',
-                    label: 'Developer'
-                },
-                {
-                    value: '4',
-                    label: 'Maintainer'
-                }
-            ],
             typeList: [
                 {
                     name: "Types",
                     id: 1,
                     list: [
                         {
-                            name: "Apps",
-                            id: "apps"
+                            name: "Group",
+                            id: "group"
                         },
                         {
-                            name: "Action",
-                            id: "action"
+                            name: "Project",
+                            id: "project"
                         },
                     ]
                 },
@@ -316,53 +302,65 @@ export default {
                     id: 2,
                     list: [
                         {
-                            name: "API management",
-                            id: "management"
+                            name: "wallet",
+                            id: "wallet"
                         },
                         {
-                            name: "Chat",
-                            id: "chat"
+                            name: "infrastructure",
+                            id: "infrastructure"
                         },
                         {
-                            name: "Code quality",
-                            id: "quality"
+                            name: "NFT",
+                            id: "nFT"
                         },
                         {
-                            name: "Code review",
-                            id: "review"
+                            name: "authentication",
+                            id: "authentication"
                         },
                         {
-                            name: "Continuous integration",
-                            id: "integration"
+                            name: "tools",
+                            id: "tools"
                         },
                         {
-                            name: "Dependency management",
-                            id: "management"
+                            name: "social",
+                            id: "social"
                         },
 
                         {
-                            name: "Deployment",
-                            id: "deployment"
+                            name: "dapp",
+                            id: "dapp"
                         },
                         {
-                            name: "IDEs",
-                            id: "ides"
+                            name: "explorer",
+                            id: "explorer"
                         },
                         {
-                            name: "Learning",
-                            id: "learning"
+                            name: "sns",
+                            id: "sns"
                         },
                         {
-                            name: "Localization",
-                            id: "localization"
+                            name: "defi",
+                            id: "defi"
                         },
                         {
-                            name: "Mobile",
-                            id: "mobile"
+                            name: "games",
+                            id: "games"
                         },
                         {
-                            name: "Monitoring",
-                            id: "monitoring"
+                            name: "official",
+                            id: "official"
+                        },
+                        {
+                            name: "bridge",
+                            id: "bridge"
+                        },
+                        {
+                            name: "swap",
+                            id: "swap"
+                        },
+                        {
+                            name: "metaverse",
+                            id: "metaverse"
                         },
                     ]
                 },
@@ -393,30 +391,63 @@ export default {
             tableData: {
                 tableList: [
                     {
+                        value: "yong1",
+                        label: "yong1",
+                        typeId: 1,
                         name: "yong1",
                         by: "By imgbot",
                         dec: "A GitHub app that optimizes your images",
                         type: "Recommended",
                     },
                     {
+                        value: "yong2",
+                        label: "yong2",
+                        typeId: 1,
                         name: "yong2",
                         by: "By imgbot",
                         dec: "A GitHub app that optimizes your images",
                         type: "Recommended",
                     },
                     {
+                        value: "yong3",
+                        label: "yong3",
+                        typeId: 1,
                         name: "yong3",
                         by: "By imgbot",
                         dec: "Daily,automatic backups of your repos and metadata. Restore your backups with metadata in seconds + Sync to your S3 or Azure",
                         type: "Recommended",
                     },
+                     {
+                        value: "feng1",
+                        label: "feng1",
+                        typeId: 1,
+                        name: "feng1",
+                        by: "By imgbot",
+                        dec: "Daily,automatic backups of your repos and metadata. Restore your backups with metadata in seconds + Sync to your S3 or Azure",
+                        type: "Recommended",
+                    },
+                      {
+                        value: "feng1",
+                        label: "feng1",
+                        typeId:2,
+                        name: "feng1",
+                        by: "By imgbot",
+                        dec: "Daily,automatic backups of your repos and metadata. Restore your backups with metadata in seconds + Sync to your S3 or Azure",
+                        type: "Recommended",
+                    },
                     {
+                        value: "yong4",
+                        label: "yong4",
+                        typeId: 2,
                         name: "yong4",
                         by: "By imgbot",
                         dec: "A GitHub app that optimizes your images",
                         type: "Recommended",
                     },
                     {
+                        value: "yong5",
+                        label: "yong5",
+                        typeId: 2,
                         name: "yong5",
                         by: "By imgbot",
                         dec: "A GitHub app that optimizes your images",
@@ -426,10 +457,79 @@ export default {
                 total: 5,
                 page: 1,
                 pageSize: 3
-            }
+            },
+            projectList: [],
+            groupList: [],
+            projectShow: true,
+            groupShow: true,
+            inputValue: null
         }
     },
     methods: {
+        selectFun(data) {
+            console.log("selectFun")
+            // console.log(data)
+        },
+        inputFun(value) {
+            this.inputValue = value;
+        },
+        searchFun() {
+            console.log(this.inputValue)
+            let groupList = [];
+            let projectList = [];
+            this.tableData.tableList.forEach(element => {
+                let index = element.name.indexOf(this.inputValue)
+                if (index != -1) {
+                    if (element.typeId === 1) {
+                        groupList.push(element)
+                    } else {
+                        projectList.push(element)
+                    }
+                    this.groupList = groupList.slice(0, 8)
+                    this.projectList = projectList.slice(0, 8)
+                }
+            })
+        },
+        clearFun() {
+            let groupList = [];
+            let projectList = [];
+            this.tableData.tableList.forEach(element => {
+                if (element.typeId === 1) {
+                    groupList.push(element)
+                } else {
+                    projectList.push(element)
+                }
+            })
+            this.groupList = groupList.slice(0, 8)
+            this.projectList = projectList.slice(0, 8)
+            this.projectShow = true;
+            this.groupShow = true
+        },
+        getMoreParams(item) {
+            console.log("getMoreParams")
+            this.roleValue = item.value;
+            let arr = []
+            if (item.typeId === 1) {
+                this.projectShow = false;
+                this.groupShow = true;
+                this.tableData.tableList.forEach(element => {
+                    if (element.name === item.name) {
+                        arr.push(element)
+                    }
+                })
+                this.groupList = arr
+            } else {
+                this.projectShow = true;
+                this.groupShow = false
+                this.tableData.tableList.forEach(element => {
+                    if (element.name === item.name) {
+                        arr.push(element)
+                    }
+                })
+                this.projectList = arr
+            }
+
+        },
         chooseFun(item) {
             item.select = !item.select;
             console.log("dsfdsf")
@@ -467,6 +567,17 @@ export default {
         }
     },
     created() {
+        let groupList = [];
+        let projectList = [];
+        this.tableData.tableList.forEach(element => {
+            if (element.typeId === 1) {
+                groupList.push(element)
+            } else {
+                projectList.push(element)
+            }
+        })
+        this.groupList = groupList.slice(0, 8)
+        this.projectList = projectList.slice(0, 8)
     },
 }
 </script>

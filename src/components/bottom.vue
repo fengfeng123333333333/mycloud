@@ -14,8 +14,13 @@
 .footItem {
   width: 400px;
   padding: 40px 0;
+  display: flex;
 }
-
+.footItemBox{
+  margin-top: 10px;
+  font-size: 14px;
+  color: #666666;
+}
 .footertitle {
   font-size: 14px;
   font-family: PingFangSC-Medium, PingFang SC;
@@ -33,10 +38,15 @@
 
 .infoItem {
   width: 135px;
-  margin-right: 10px;
   cursor: pointer;
+  margin-bottom: 5px;
 }
-
+.infoItem:hover{
+  color: #1776ff;
+}
+.infoItem:last-child{
+  margin-bottom: 0;
+}
 .start {
   display: flex;
   align-items: center;
@@ -137,22 +147,32 @@
   <div class="footerApp">
     <div class="footertop">
       <div class="footItem">
-        <span class="footertitle">TEAM</span>
-        <div class="footerInfoItem">
+        <div class="footItemBox">
+          <span class="footertitle">TEAM</span>
+          <div class="infoItem" @click="topagesFun(1)">Group</div>
+          <div class="infoItem" @click="topagesFun(2)">Project</div>
+          <div class="infoItem" @click="topagesFun(3)">New group</div>
+          <div class="infoItem" @click="topagesFun(4)">New project</div>
+        </div>
+        <div class="footItemBox">
+          <span class="footertitle">Easy coding</span>
+          <div class="infoItem" @click="topagesFun(5)">code Editor</div>
+        </div>
+        <!-- <div class="footerInfoItem">
           <div class="infoItem" @click="topagesFun(1)">Group</div>
           <div class="infoItem" @click="topagesFun(2)">Project</div>
         </div>
         <div class="footerInfoItem">
           <div class="infoItem" @click="topagesFun(3)">New group</div>
           <div class="infoItem" @click="topagesFun(4)">New project</div>
-        </div>
-        <div class="start">
+        </div> -->
+        <!-- <div class="start">
           <span class="coding">Easy coding</span>
           <div class="startButton">
             <span>Get Start</span>
             <img src="../assets/img/home/startbtn.png" alt="">
           </div>
-        </div>
+        </div> -->
       </div>
       <div class="footItem"></div>
       <div class="footItem footItemImgBox">
@@ -195,6 +215,12 @@ export default {
         this.$router.push({
           name: "project_add"
         })
+      } else if (type === 5) {
+        this.$Notice.info({
+          title: "敬请期待",
+          background: true,
+          duration: 3
+        });
       }
     }
   },
