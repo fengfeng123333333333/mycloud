@@ -1,12 +1,17 @@
 <template>
   <div id="app">
     <router-view />
+    <Bottom></Bottom>
   </div>
 </template>
 
 <script>
+import Bottom from './components/bottom.vue'
 export default {
   name: 'App',
+  components:{
+    Bottom
+  },
   data() {
     return {
       tabList: [

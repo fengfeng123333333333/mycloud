@@ -353,6 +353,7 @@
   height: 16px;
   margin-left: 15px;
 }
+
 .about {
   font-size: 14px;
   font-family: PingFangSC-Regular, PingFang SC;
@@ -509,24 +510,10 @@
         </div>
       </div>
     </div>
-    <div class="outview">
-    <div class="footlogo">
-      <img src="../../../assets/img/nav_logo@2x.png" alt="" />
-    </div>
-    <div class="aboutview">
-      <div class="about">© 2022 chaincloud.com</div>
-      <div class="row">
-        <img class="iconsize" src="../../../assets/img/wechat@2x.png" alt="" />
-        <img class="iconsize" src="../../../assets/img/twitter@2x.png" alt="" />
-        <img class="iconsize" src="../../../assets/img/facebook@2x.png" alt="" />
-      </div>
-    </div>
-  </div>
   </div>
 </template>
 
 <script>
-
 export default {
   name: "Home",
   data() {
@@ -540,9 +527,9 @@ export default {
   },
 
   methods: {
-    doStart(){
+    doStart() {
       this.$router.push({
-        name:"group_index"
+        name: "group_index"
       })
     }
   },
