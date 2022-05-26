@@ -7,6 +7,7 @@ Router.prototype.push = function push(location) {
 import group from '@/components/group/group.vue'
 import project from '@/components/project/project.vue'
 const index = r => require.ensure([], () => r(require('@/pages/index/index/index.vue'), 'index'))
+const aboutus = r => require.ensure([], () => r(require('@/pages/index/index/aboutus.vue'), 'aboutus'))
 const teamscan_index= r => require.ensure([], () => r(require('@/pages/teamscan/index.vue'), 'teamscan_index'))
 const group_index = r => require.ensure([], () => r(require('@/pages/group/index/group_index.vue'), 'group_index'))
 const group_add = r => require.ensure([], () => r(require('@/pages/group/index/group_add.vue'), 'group_add'))
@@ -38,6 +39,14 @@ let router = new Router({
         title: 'chain-cloud Home',
       },
       component: index
+    },
+    {
+      path: '/aboutus',
+      name: 'aboutus',
+      meta: {
+        title: 'chain-cloud aboutus',
+      },
+      component: aboutus
     },
     {
       path: '/teamscan',
